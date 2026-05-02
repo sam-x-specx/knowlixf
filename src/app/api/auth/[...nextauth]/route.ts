@@ -13,14 +13,29 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/",
+    error: "/",
   },
   callbacks: {
     async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub as string;
+      }
       return session;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
   },
+  debug: process.env.NODE_ENV === "development", // ✅ Helpful for debugging
 });
 
 export { handler as GET, handler as POST };
