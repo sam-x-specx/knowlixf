@@ -40,3 +40,10 @@ export interface QuizResult {
   percentage: number;
   timeTaken: number;
 }
+
+export interface UserTokenData {
+  userId: string;
+  tokens: number;
+  usedTokens: number;
+  lastReset?: Date;
+}
