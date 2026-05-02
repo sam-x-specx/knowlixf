@@ -42,8 +42,8 @@ export interface QuizResult {
 }
 
 export interface UserTokenData {
-  userId: string;
   tokens: number;
-  usedTokens: number;
-  lastReset?: Date;
+  totalEarned: number;
+  totalSpent: number;
+  lastUpdated: string;
 }
